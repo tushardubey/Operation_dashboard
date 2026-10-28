@@ -1,0 +1,13 @@
+{
+  "name": "orbit-operations-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A deployable operations dashboard with a small Node.js API",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

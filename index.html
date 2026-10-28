@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101a22" />
+    <meta name="description" content="A calm, clear workspace for tracking service health and operational incidents." />
+    <title>Orbit — Operations, in focus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#" aria-label="Orbit home">
+          <span class="brand-mark"><span></span><span></span><span></span><span></span></span>
+          <span>orbit<span class="brand-period">.</span></span>
+        </a>
+        <div class="workspace-label">WORKSPACE</div>
+        <div class="workspace-switch"><span class="workspace-avatar">N</span><span class="workspace-copy"><strong>Northstar Cloud</strong><small>Production</small></span></div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#overview"><span class="nav-icon">◫</span> Overview</a>
+          <a class="nav-link" href="#incidents"><span class="nav-icon">◉</span> Incidents <span class="nav-count" id="nav-count">3</span></a>
+          <a class="nav-link" href="#services"><span class="nav-icon">▦</span> Services</a>
+          <a class="nav-link" href="#activity"><span class="nav-icon">◷</span> Activity log</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-help"><span class="help-icon">✳</span><strong>All systems go?</strong><p>A healthy team starts with a clear picture.</p><a href="#services">View service health <span>→</span></a></div>
+          <div class="profile-button"><span class="profile-avatar">AM</span><span class="profile-copy"><strong>Alex Morgan</strong><small>Platform engineer</small></span></div>
+        </div>
+      </aside>
+
+      <main class="main-area" id="overview">
+        <header class="topbar">
+          <button class="mobile-menu" id="mobile-menu" aria-label="Open navigation">☰</button>
+          <div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong>Overview</strong></div>
+          <div class="topbar-actions"><button class="live-indicator" id="api-status" title="Click to retry the API"><i></i> Connecting…</button><button class="icon-button" id="activity-shortcut" aria-label="View recent activity">♧</button><span class="top-avatar">AM</span></div>
+        </header>
+
+        <div class="page-content">
+          <section class="page-heading">
+            <div><div class="eyebrow"><span class="eyebrow-line"></span> <span id="current-date"></span></div><h1>Good morning, Alex <span class="wave">✳</span></h1><p>Here’s what’s happening across your infrastructure today.</p></div>
+            <button class="primary-button" id="new-incident"><span>＋</span> New incident</button>
+          </section>
+
+          <section class="status-banner" aria-label="Overall system status">
+            <div class="status-symbol"><span>✓</span></div>
+            <div class="status-message"><strong id="overall-status">Systems are operational</strong><span>All services are running within normal parameters.</span></div>
+            <div class="status-updated"><span class="pulse"></span> Updated just now</div>
+            <div class="status-sparkline" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </section>
+
+          <section class="metrics-grid" aria-label="Operations metrics">
+            <article class="metric-card"><div class="metric-top"><span>Active incidents</span><span class="metric-icon incident-icon">◎</span></div><div class="metric-value" id="active-count">03</div><div class="metric-foot" id="active-foot"><span class="metric-dot dot-orange"></span> 1 needs attention</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Services online</span><span class="metric-icon service-icon">▦</span></div><div class="metric-value" id="services-online">— <span class="metric-muted">/ —</span></div><div class="metric-foot" id="uptime-summary"><span class="metric-dot dot-green"></span> Waiting for service data</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Mean response time</span><span class="metric-icon response-icon">↗</span></div><div class="metric-value" id="response-time">— <span class="metric-unit">ms</span></div><div class="metric-foot" id="response-summary"><span class="metric-dot dot-blue"></span> Live API health checks</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Deploys today</span><span class="metric-icon deploy-icon">⇧</span></div><div class="metric-value" id="deploy-count">—</div><div class="metric-foot" id="last-deploy"><span class="metric-dot dot-blue"></span> Deployment history loading</div></article>
+          </section>
+
+          <div class="content-grid">
+            <section class="panel incidents-panel" id="incidents">
+              <div class="panel-heading"><div><div class="panel-title-row"><h2>Active incidents</h2><span class="count-pill" id="incident-pill">03</span></div><p>Keep a pulse on what needs attention.</p></div><button class="text-button" id="view-all">View all <span>→</span></button></div>
+              <div class="incident-toolbar"><div class="search-wrap"><span>⌕</span><input id="incident-search" type="search" placeholder="Search incidents..." aria-label="Search incidents" /></div><select id="incident-filter" aria-label="Filter incidents"><option value="all">All incidents</option><option value="Investigating">Investigating</option><option value="Monitoring">Monitoring</option><option value="Identified">Identified</option></select></div>
+              <div class="incident-list" id="incident-list"></div>
+              <div class="empty-state" id="empty-state" hidden><span>✓</span><strong>Nothing to see here</strong><p>No incidents match your search.</p></div>
+            </section>
+
+            <section class="panel services-panel" id="services">
+              <div class="panel-heading"><div><h2>Service health</h2><p>Live checks from the Orbit API.</p></div><button class="action-button" id="refresh-services">Check now ↻</button></div>
+              <div class="service-summary"><span><i class="legend-dot green"></i> Operational</span><span><i class="legend-dot orange"></i> Degraded</span></div>
+              <div class="service-list" id="service-list"><div class="service-loading">Connecting to the service monitor…</div></div>
+              <div class="service-footer"><span id="service-count">9 services monitored</span><span id="service-checked">Waiting for first check</span></div>
+            </section>
+          </div>
+
+          <section class="panel activity-panel" id="activity">
+            <div class="panel-heading activity-heading"><div><h2>Recent activity</h2><p>The latest changes across your workspace.</p></div><span class="activity-period">Last 24 hours</span></div>
+            <div class="activity-list" id="activity-list"></div>
+            <button class="activity-more" id="activity-more" hidden>Show all activity</button>
+          </section>
+          <footer class="page-footer"><span>Orbit Operations</span><span>Built for calmer on-call days <span class="footer-star">✳</span></span><span>v1.0.0</span></footer>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <section class="incident-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" id="modal-close" aria-label="Close dialog">×</button>
+        <div class="modal-kicker"><span class="modal-kicker-icon">＋</span> INCIDENT MANAGEMENT</div>
+        <h2 id="modal-title">Create an incident</h2>
+        <p class="modal-description">Capture the essentials. Your team can take it from here.</p>
+        <form id="incident-form">
+          <label for="incident-title">What’s happening?</label>
+          <input id="incident-title" name="title" placeholder="e.g. Elevated API latency in us-east-1" required maxlength="100" />
+          <div class="form-row"><div><label for="incident-service">Affected service</label><select id="incident-service" name="service"><option>API Gateway</option><option>Primary Database</option><option>Edge Network</option><option>Auth Service</option><option>Background Workers</option></select></div><div><label for="incident-severity">Severity</label><select id="incident-severity" name="severity"><option value="major">Major</option><option value="minor">Minor</option><option value="critical">Critical</option></select></div></div>
+          <label for="incident-description">Short description <span class="optional">(optional)</span></label>
+          <textarea id="incident-description" name="description" rows="3" placeholder="Add context for your team..."></textarea>
+          <div class="form-actions"><button type="button" class="secondary-button" id="cancel-modal">Cancel</button><button type="submit" class="primary-button">Create incident <span>→</span></button></div>
+        </form>
+      </section>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

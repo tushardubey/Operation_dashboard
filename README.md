@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Orbit Operations
 
 A responsive operations dashboard backed by a small Node.js HTTP API. The demo has working incident workflows, health checks, service-specific deployments, live metrics, and an activity log. Its infrastructure readings are simulated; it does not connect to a real cloud account.
@@ -37,3 +38,6 @@ To reset the demo, stop the server and delete `data/dashboard.json`; the next st
 ## Deployment
 
 Deploy to a Node.js host, set its `PORT` environment variable if needed, and run `npm start`. The process binds to `0.0.0.0`. This is an interview/demo app, not a production-secured control plane: add authentication/authorization, managed storage, and real provider integrations before exposing it publicly or connecting it to infrastructure.
+=======
+# Operation_dashboard
+>>>>>>> da96d9459a0fb045abc049e49358a4f89e21633d
